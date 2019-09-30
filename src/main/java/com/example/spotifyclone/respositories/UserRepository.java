@@ -1,7 +1,10 @@
 package com.example.spotifyclone.respositories;
 
-import com.example.spotify.model.User;
+import com.example.spotifyclone.model.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository <User, Long>{
+    @Query("FROM User u WHERE u.username = ?1 and password =?2")
+    public User login(String username, String password);
 }
