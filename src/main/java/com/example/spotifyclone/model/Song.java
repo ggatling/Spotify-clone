@@ -12,10 +12,13 @@ public class Song {
     private Long id;
 
     @Column
-    private String songTitle;
+    private String title;
 
     @Column
-    private double songLength;
+    private String artist;
+
+    @Column
+    private double length;
 
     public Song (){}
 
@@ -27,20 +30,28 @@ public class Song {
         this.id = id;
     }
 
-    public String getSongTitle(){
-        return songTitle;
+    public String getTitle(){
+        return title;
     }
 
-    public void setSongTitle(){
-        this.songTitle = songTitle;
+    public void setTitle(){
+        this.title = title;
     }
 
-    public double getSongLength(){
-        return songLength;
+    public String getArtist(){
+        return artist;
     }
 
-    public void setSongLength(){
-        this.songLength = songLength;
+    public void setArtist(){
+        this.artist = artist;
+    }
+
+    public double getLength(){
+        return length;
+    }
+
+    public void setLength(){
+        this.length = length;
     }
 
 }
