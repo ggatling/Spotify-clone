@@ -1,6 +1,7 @@
 package com.example.spotifyclone.service;
 
 import com.example.spotifyclone.model.User;
+import com.example.spotifyclone.model.UserRole;
 import com.example.spotifyclone.respositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,9 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    UserRoleService userRoleService;
+
     @Override
     public Iterable<User> listUsers() {
         return userRepository.findAll();
@@ -19,6 +23,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User createUser(User newUser) {
+        UserRole userRole = userRoleService.getRole(newUser.getUserRole().getName());
+        newUser.setUserRole(userRole);
         return userRepository.save(newUser);
     }
 
@@ -32,4 +38,5 @@ public class UserServiceImpl implements UserService{
         userRepository.deleteById(userId);
         return null;
     }
+
 }

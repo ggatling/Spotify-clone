@@ -1,6 +1,15 @@
 package com.example.spotifyclone.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
+
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -37,4 +46,13 @@ public class User {
     public void setPassword(String password){
         this.password = password;
     }
+
+    @ManyToOne(cascade = {CascadeType.DETACH,
+            CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "user_role_id", nullable = false)
+    private UserRole userRole;
+
+    public UserRole getUserRole() { return userRole; }
+
+    public void setUserRole(UserRole userRole) { this.userRole = userRole; }
 }
