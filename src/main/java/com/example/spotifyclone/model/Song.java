@@ -1,6 +1,7 @@
 package com.example.spotifyclone.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "songs")
@@ -53,5 +54,17 @@ public class Song {
     public void setLength(){
         this.length = length;
     }
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH,
+                    CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinTable(name = "user_songs",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = @JoinColumn(name = "songs_id"))
+    private List<User> users;
+
+    public List<User> getUsers(){ return users; }
+
+    public void setUsers(List<User> users) { this.users = users; }
 
 }

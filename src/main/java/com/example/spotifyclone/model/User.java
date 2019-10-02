@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerator;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
@@ -55,4 +58,26 @@ public class User {
     public UserRole getUserRole() { return userRole; }
 
     public void setUserRole(UserRole userRole) { this.userRole = userRole; }
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH,
+                    CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinTable(name = "user_songs",
+            joinColumns = {@JoinColumn(name = "songs_id")},
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<Song> songs;
+
+    public List<Song> getSongs(){ return songs; }
+
+    public void setSongs(List<Song> songs) { this.songs = songs; }
+
+
+    //allows users to add songs to their profile
+    public List<Song> addSongs(Song song){
+        if(songs == null)
+            songs = new ArrayList<>();
+        songs.add(song);
+
+        return songs;
+    }
 }
