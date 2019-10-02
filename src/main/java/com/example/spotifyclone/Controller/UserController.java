@@ -1,9 +1,11 @@
 package com.example.spotifyclone.Controller;
 
+import com.example.spotifyclone.model.JwtResponse;
 import com.example.spotifyclone.model.User;
 import com.example.spotifyclone.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,15 +13,21 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/user/list")
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User user) {
+        return ResponseEntity.ok(new JwtResponse(userService.login(user)));
+    }
+
+    @GetMapping("admin/user/list")
     public Iterable<User> listUsers(){
         return userService.listUsers();
     }
 
     @PostMapping("/signup")
-    public User createUser(@RequestBody User newUser){
-        return userService.createUser(newUser);
+    public ResponseEntity<?> createUser(@RequestBody User newUser) {
+        return ResponseEntity.ok(new JwtResponse(userService.createUser(newUser)));
     }
+    //added functionality that allows signup to generate a token like login
 
     @GetMapping("/login/{username}/{password}")
     public User login(@PathVariable String username,@PathVariable String password){
