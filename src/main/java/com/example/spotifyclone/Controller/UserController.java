@@ -13,12 +13,18 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/hello")
+    public String helloWorld(){
+        return "Hello World!!";
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
         return ResponseEntity.ok(new JwtResponse(userService.login(user)));
     }
 
     @GetMapping("admin/user/list")
+
     public Iterable<User> listUsers(){
         return userService.listUsers();
     }
