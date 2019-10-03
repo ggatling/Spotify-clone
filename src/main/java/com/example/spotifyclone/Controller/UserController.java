@@ -34,10 +34,11 @@ public class UserController {
         return  userService.login(username, password);
     }
 
-    @DeleteMapping("/user/{userId}")
+    @DeleteMapping("/admin/user/{userId}")
     public HttpStatus deleteUserById(@PathVariable Long userId){
         return userService.deleteById(userId);
     }
+
     @PutMapping("/user/{username}/{songId}")
     public User addSong(@PathVariable String username, @PathVariable Long songId){
         return userService.addSong(username, songId);
