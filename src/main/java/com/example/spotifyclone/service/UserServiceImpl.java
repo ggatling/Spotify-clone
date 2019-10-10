@@ -27,6 +27,12 @@ public class UserServiceImpl implements UserService{
     @Autowired
     UserRoleService userRoleService;
 
+    @Autowired
+    SongService songService;
+
+    @Autowired
+    SongRepository songRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = getUser(username);
@@ -64,23 +70,15 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User login(String username, String password){
-        return userRepository.login(username, password);
-    }
-
-    @Override
     public HttpStatus deleteById(Long userId){
         userRepository.deleteById(userId);
-        return null;
+        return HttpStatus.OK;
     }
 
     @Override
     public User getUser(String username){
         return userRepository.findByUsername(username);
     }
-
-    @Autowired
-    SongRepository songRepository;
 
     @Override
     public User addSong(String username, Long songId) {

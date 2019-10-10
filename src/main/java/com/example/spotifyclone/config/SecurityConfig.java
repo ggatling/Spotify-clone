@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/signup/**", "/login/**").permitAll()
                 //everyone in the rold has access to login and signup
-                .antMatchers("/user/**", "/profile/**", "/songs/**").authenticated()
+                .antMatchers("/user/**", "/profile/**", "/songs/**").permitAll()
                 //anything after ** you need authentication
                 .antMatchers("/role/**").hasRole("DBA")
                 //you have to have to a DBA role to access role

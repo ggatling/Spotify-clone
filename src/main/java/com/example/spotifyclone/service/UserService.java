@@ -6,21 +6,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
-    public Iterable<User> listUsers();
-
     public User getUser(String username);
     //will get a token when the user logs in
+
+    public Iterable<User> listUsers();
 
     public String createUser(User newUser);
     //when a user signs up a token will be generated
 
-    public User login(String username, String password);
+    public String login(User user);
 
     public HttpStatus deleteById(Long userId);
 
     public User addSong(String username, Long songId);
 
-    public String login(User user);
+
 
 
 

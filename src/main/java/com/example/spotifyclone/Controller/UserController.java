@@ -24,7 +24,6 @@ public class UserController {
     }
 
     @GetMapping("admin/user/list")
-
     public Iterable<User> listUsers(){
         return userService.listUsers();
     }
@@ -34,11 +33,6 @@ public class UserController {
         return ResponseEntity.ok(new JwtResponse(userService.createUser(newUser)));
     }
     //added functionality that allows signup to generate a token like login
-
-    @GetMapping("/login/{username}/{password}")
-    public User login(@PathVariable String username,@PathVariable String password){
-        return  userService.login(username, password);
-    }
 
     @DeleteMapping("/admin/user/{userId}")
     public HttpStatus deleteUserById(@PathVariable Long userId){
